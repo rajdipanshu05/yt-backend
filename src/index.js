@@ -1,12 +1,14 @@
 // require('dotenv').config({path: './env'}); no problem here
 
 import dotenv from "dotenv";
+dotenv.config();
+
 import connectDB from './db/index.js';
 import { app } from "./app.js";
 
-dotenv.config({
-    path : './.env'
-})
+console.log("cloud name:", process.env.CLOUDINARY_CLOUD_NAME)
+console.log("api key:", process.env.CLOUDINARY_API_KEY)
+console.log("api secret:", process.env.CLOUDINARY_API_SECRET)
 
 connectDB()
 .then(()=>{

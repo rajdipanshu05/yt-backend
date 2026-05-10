@@ -49,7 +49,6 @@ const userSchema = new Schema({
 userSchema.pre("save", async function (next){ //arrow mt use karo this ka access nhi hota
     if(!this.isModified("password")) return next();
     this.password = await bcrypt.hash(this.password,10);
-    next();
 })
 
 userSchema.methods.isPasswordCorrect = async function (password) {
@@ -64,14 +63,14 @@ userSchema.methods.generateAccessToken = function() {
             username : this.username,
             fullName : this.fullName
         },
-        process.env.ACESS_TOKEN_SECRET,
+        process.env.ACCESS_TOKEN_SECRET,
         {
             expiresIn : process.env.ACCESS_TOKEN_EXPIRY
         }
     )
 }
 
-userSchema.methods.generateRefressToken = function() {
+userSchema.methods.generateRefreshToken = function() {
     return jwt.sign(
         {
             _id : this._id
